@@ -32,6 +32,8 @@ class Goal(db.Model):
 
     goal_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    likes_count = db.Column(db.Integer)
+    goal_name - db.Column(db.String)
 
     user = db.relationship('User', backref='goals')
 
@@ -40,4 +42,8 @@ class Rejection(db.Model):
     __tablename__ = "rejections"
 
     rejection_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    goal_id = 
+    goal_id = db.Column(db.Integer, db.ForeignKey("goals.goal_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+    goal = db.relationship('Goal', backref='rejections')
+    user = db.relationship('User', backref='rejections')
