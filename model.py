@@ -26,6 +26,18 @@ class Group(db.Model):
     leader_3 = db.Column(db.String)
 
 
+class GroupMember(db.Model):
+    """associates groups with users"""
+    __tablename__ = "group_members"
+
+    group_member_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    group_id = db.Column(db.Integer, db.ForeignKey("groups.group_id"))
+
+    user = db.relationship('User', backref='group_members')
+    group = db.relationship('Group', backref='group_members')
+
+
 class Goal(db.Model):
     """stores goals and likes"""
     __tablename__ = "goals"
