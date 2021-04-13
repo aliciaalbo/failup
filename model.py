@@ -59,3 +59,16 @@ class Rejection(db.Model):
 
     goal = db.relationship('Goal', backref='rejections')
     user = db.relationship('User', backref='rejections')
+
+class Reactions(db.Model):
+    """stores reactions to rejections"""
+    __tablename__  = "reactions"
+
+    reaction_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    goal_id = db.Column(db.Integer, db.ForeignKey("goals.goal_id"))
+    recipient_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    sender_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+    goal = db.relationship('Goal', backref='reactions')
+    recipient = db.relationship('User', backref='rejections')
+    sender = db.relationship('User', backref='rejections')
