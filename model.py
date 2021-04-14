@@ -72,3 +72,16 @@ class Reactions(db.Model):
     goal = db.relationship('Goal', backref='reactions')
     recipient = db.relationship('User', backref='rejections')
     sender = db.relationship('User', backref='rejections')
+
+class Commnets(db.Model):
+    """stores comments on rejections"""
+    __tablename__ = "comments"
+
+    commnet_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    rejection_id = db.Column(db.Integer, db.ForeignKey("rejections.rejection_id"))
+    commenter_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    goal_id = db.Column(db.Integer, bd.ForgeinKey("goals.goal_id"))
+
+    rejection = db.relationship('Rejection', backref='comments')
+    commenter = db.relationship('User', backref='comments')
+    goal = db.Relationship('Goal', backref='comments')
